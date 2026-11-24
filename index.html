@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Consulta diploma — redirecionamento</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 2rem; color: #333; line-height: 1.45; }
+  a { color: #1a4d8f; }
+</style>
+<script>
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var code = params.get("code") || params.get("codigo") || "";
+  code = code.replace(/[^a-zA-Z0-9._-]/g, "");
+  if (code) {
+    var low = code.toLowerCase();
+    if (low.indexOf("he-") === 0 || low.indexOf("historico_") === 0) {
+      window.location.replace(code + ".html");
+      return;
+    }
+    window.location.replace(code + ".html");
+    return;
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("msg").textContent =
+      "Escaneie o QR do diploma ou abra o link com ?code=CODIGO_DE_VALIDACAO";
+  });
+})();
+</script>
+</head>
+<body>
+<p id="msg">Redirecionando…</p>
+<p style="font-size:0.85rem;color:#666;">
+  Pasta de demonstração do projeto Criador de Apostilas. Publique esta pasta (Netlify, GitHub Pages, etc.)
+  e configure <code>validacao_public_url</code> no JSON do diploma.
+</p>
+</body>
+</html>
